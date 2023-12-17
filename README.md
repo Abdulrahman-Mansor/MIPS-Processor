@@ -15,7 +15,7 @@ The microprocessor comprises an instruction ROM (`MyRom`) and a set of registers
 ### Signals and Variables
 - `R`: Array of registers used for storing data.
 - `MyRom`: Instruction ROM holding the program instructions.
-- Various signals (`rd`, `alu_func`, `instruction_register`, `memory_rw`, `CF`, `ZF`, etc.) used for internal processing and control.
+- Various signals ( `alu_func`, `instruction_register`, `memory_rw`, `CF`, `ZF`, etc.) used for internal processing and control.
 
 ### Processes
 - `clk` Process: Driven by the clock signal, it handles instruction fetching, decoding, execution, and control flow.
