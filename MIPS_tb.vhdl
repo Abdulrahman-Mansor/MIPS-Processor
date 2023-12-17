@@ -9,15 +9,16 @@ architecture behave of MIPS_tb is
 component mips_microprocessor is
 	port(
 		clk,reset : in std_logic;
+		program_counter : out std_logic_vector(7 downto 0);
 		destnation_register : out std_logic_vector( 7 downto 0)
 	);
 end component;
 
 signal clk,reset : std_logic;
-signal destnation_register : std_logic_vector(7 downto 0);
+signal destnation_register,program_counter : std_logic_vector(7 downto 0);
 constant clk_period : time := 10 ns;
 begin 
-	processor : mips_microprocessor port map(clk, reset, destnation_register);
+	processor : mips_microprocessor port map(clk, reset,program_counter, destnation_register);
 	clk1_porc : process
 	begin
 		
@@ -28,14 +29,7 @@ begin
 	end process;
 	
 	
-	-- clk_porc : process
-		-- clk <= '0';
-		-- wait for 5 ns;
-		-- while true loop
-			-- clk <= not clk;
-			-- wait for 5 ns;
-		-- end loop;
-	-- end process;
+
 	
 end architecture;
 		
