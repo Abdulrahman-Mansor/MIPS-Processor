@@ -14,7 +14,7 @@ The `MIPS_functions_implementation` file, contained within the package body `pkg
 
 ## 4. Entity (mips_microprocessor)
 
-The mips_microprocessor entity uses a single input called clk. When clk changes, it makes the processor run one instruction quickly. When the reset signal is activated, it starts the instructions again from the beginning.
+The `mips_microprocessor` entity uses a single input called `clk`. When clk changes, it makes the processor run one instruction quickly. When the `reset` signal is activated, it starts the instructions again from the beginning by resting the `program_counter` signal.
 
 ## 5. Signals & Variables
 
