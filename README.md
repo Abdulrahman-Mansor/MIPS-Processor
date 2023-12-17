@@ -14,7 +14,7 @@ The `MIPS_functions_implementation` file, contained within the package body `pkg
 
 ## 4. Entity (mips_microprocessor)
 
-The `mips_microprocessor` entity serves as the core of the microprocessor design. It features ports such as `clk`, `reset`, `program_counter`, and `destination_register`, enabling communication with external elements. This entity orchestrates the entire processor's functionality, including instruction fetching, decoding, execution, and control flow.
+The mips_microprocessor entity uses a single input called clk. When clk changes, it makes the processor run one instruction quickly. When the reset signal is activated, it starts the instructions again from the beginning.
 
 ## 5. Signals & Variables
 
