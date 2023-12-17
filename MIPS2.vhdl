@@ -16,22 +16,25 @@ architecture mips_behav of mips_microprocessor is
 	signal R : Registers := (others => (others => '0'));
 	
 	constant MyRom : Instructions_rom :=(
-		x"7003",--0
-		x"720A",--1
-		x"7400",
-		x"7E00",
-		x"1290",
-		x"3001",
-		x"B1C4",
-		x"145B",
+		x"7C02",-- r6 <- "010" 0111 1100 0000 0010 r0 = r6
+		x"7E63",-- r7 <- num=17	  0111 1110 0110 0011 r1 = r7
+		x"1F93",-- r2 <- r6 / r7  0001 1111 1001 0011
+		x"1F9B",-- loop : r3 <- r7 / r6 0001 1111 1001 1011
+		x"17A2",-- 		 r4 <- r3 * r6 0001 0111 1010 0010
+		x"A9CE",--		 if r4 == r7 : 1010 1001 1100 1110
+						-- 	BUN : 14
+						 -- else -- pc + 1
+		x"2D81",-- r6 <- r6 + 1 0010 1101 1000 0001
+		x"CC83",-- if r6 < r2	   1100 1100 1000 0011
+					-- BUN : x"3"
+		x"2B40",-- r5 <- r5 + 0 0010 1011 0100 0000
 		x"0000",
 		x"0000",
 		x"0000",
 		x"0000",
 		x"0000",
-		x"0000",
-		x"0000",
-		x"0000"
+		x"7A01",-- r5 <- 1  0111 1010 0000 0001
+		x"F008" -- BR : x"8"    1111 0000 0000 1000
 	);
 	signal rd: std_logic_vector(7 downto 0) := x"00";
 	signal alu_func: std_logic_vector (2 downto 0) := "000";
@@ -49,18 +52,19 @@ architecture mips_behav of mips_microprocessor is
 		variable addr12 : std_logic_vector(11  downto 0);
 		variable rs,rt,pc_current,pc_next: std_logic_vector(7 downto 0) := x"00";
 		variable immediate6,addr6 : std_logic_vector(5 downto 0);
-		variable immediate9,addr9 : std_logic_vector(8 downto 0);
+		variable immediate9,addr9 : std_logic_vector(8 downto 0); 
 		begin
 			if reset = '1' then
 				pc_current := x"00";
 				pc_next := x"00";
+				program_counter <= x"00";
 			elsif (rising_edge(clk)) then
 					--fetch
 					pc_current := pc_next;
 					instruction_register_v := MyRom(to_integer(unsigned(pc_current(3 downto 0))));
 					
 					--decode
-					rs_num := instruction_register_v(11 downto 9);
+					rs_num := instruction_register_v(11 downto 9); -- 0000 000 
 					rt_num := instruction_register_v(8 downto 6);
 					rd_num := instruction_register_v(5 downto 3);
 					alu_func_v := instruction_register_v( 2 downto 0);
@@ -77,8 +81,7 @@ architecture mips_behav of mips_microprocessor is
 					alu_func <= alu_func_v;
 					instruction_register <= instruction_register_v;
 				pc_next := std_logic_vector(unsigned(pc_next) + 1 );
-				alu_res.CF := '0';
-				alu_res.ZF := '0';
+				
 				case opcode is
 					when x"1" =>	
 						alu_res := ALU(rs, rt, alu_func_v);
@@ -87,6 +90,7 @@ architecture mips_behav of mips_microprocessor is
 						CF <= alu_res.CF;
 						destnation_register <= temp_result(7 downto 0);
 						R(to_integer(unsigned(rd_num))) <= temp_result(7 downto 0);
+						rd <= temp_result(7 downto 0);
 						-- pc_current <= std_logic_vector(unsigned(pc_current) + 1);
 					when x"2" =>
 						temp_result (7 downto 0) := std_logic_vector(signed(rs) + signed(immediate6));
@@ -129,26 +133,26 @@ architecture mips_behav of mips_microprocessor is
 						memory_rw <= '1';
 					when x"A" =>
 						if rs = rt then
-							pc_current(5 downto 0) := addr6;
+							pc_next(5 downto 0) := addr6;
 						end if;
 					when x"B" =>
 						if rs > rt then
-							pc_current(5 downto 0) := addr6;
+							pc_next(5 downto 0) := addr6;
 						end if;
 					when x"C" =>
 						if rs < rt then
-							pc_current(5 downto 0) := addr6;
+							pc_next(5 downto 0) := addr6;
 						end if;
 					when x"D" =>
 						if CF = '1' then
-							pc_current := addr12(7 downto 0);
+							pc_next := addr12(7 downto 0);
 						end if;
 					when x"E" =>
 						if ZF = '1' then
-							pc_current := addr12(7 downto 0);
+							pc_next := addr12(7 downto 0);
 						end if;
 					when x"F" =>
-						pc_current := addr12(7 downto 0);
+						pc_next := addr12(7 downto 0);
 					when others =>
 						destnation_register <= x"00";
 						zf <= '1';
@@ -163,12 +167,3 @@ architecture mips_behav of mips_microprocessor is
 		
 end architecture;
 
--- fetch
--- +1 
--- dispaly
---pc + 1
-
--- fetch 
--- dispaly
--- +1
--- pc

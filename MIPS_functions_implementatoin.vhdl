@@ -6,6 +6,7 @@ package body pkg is
     function ALU(rs, rt: std_logic_vector(7 downto 0); s:std_logic_vector(2 downto 0) ) return alu_result is
         variable result: alu_result;
 		variable cf : std_logic;
+		-- variable div : unsigned(15 downto 0);
 		begin
           case s is	
 			when "000" =>
@@ -16,9 +17,15 @@ package body pkg is
 				result.CF := result.temp_result(8);
 			when "010" =>
 				result.temp_result := std_logic_vector(unsigned(rs) * unsigned (rt));
+				if result.temp_result > x"00ff" then
+					result.CF := '1';
+				else
+					result.CF := '0';
+				end if;
 			when "011" =>
 				result.temp_result(7 downto 0) := std_logic_vector( unsigned( rs) / unsigned(rt));
 				result.temp_result(15 downto 8) := x"00";
+				result.CF := '0';
 			when "100" =>
 				result.temp_result(7 downto 0) := (rs and rt);
 			when "101" =>

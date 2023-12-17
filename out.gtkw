@@ -1,0 +1,40 @@
+[*]
+[*] GTKWave Analyzer v3.3.100 (w)1999-2019 BSI
+[*] Sun Dec 17 18:07:48 2023
+[*]
+[dumpfile] "D:\Programming\VHDL\vhdl and qurats prjects\MIPS Processor repo\sim.vcd"
+[dumpfile_mtime] "Sun Dec 17 18:03:21 2023"
+[dumpfile_size] 3389
+[savefile] "D:\Programming\VHDL\vhdl and qurats prjects\MIPS Processor repo\out.gtkw"
+[timestart] 0
+[size] 914 688
+[pos] 0 7
+*-25.415861 27700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 211
+[signals_width] 238
+[sst_expanded] 1
+[sst_vpaned_height] 185
+@28
+clk
+@22
+processor.program_counter[7:0]
+@23
+processor.instruction_register[15:0]
+@28
+processor.cf
+processor.zf
+@c00024
+destnation_register[7:0]
+@28
+(0)destnation_register[7:0]
+(1)destnation_register[7:0]
+(2)destnation_register[7:0]
+(3)destnation_register[7:0]
+(4)destnation_register[7:0]
+(5)destnation_register[7:0]
+(6)destnation_register[7:0]
+(7)destnation_register[7:0]
+@1401200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0
