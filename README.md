@@ -1,41 +1,29 @@
-# MIPS Microprocessor Implementation
+# MIPS Microprocessor Design Justification
 
-This VHDL code implements a MIPS-like microprocessor architecture capable of executing a set of instructions stored in ROM.
+## 1. Design Overview
 
-## Design Overview
+The MIPS microprocessor is a VHDL-based design aimed at emulating a simplified version of the MIPS architecture. It comprises various components, including an instruction ROM, a set of registers, an ALU, and control logic.
 
-The `mips_microprocessor` entity defines a MIPS-like microprocessor with the following key components:
-- Inputs: `clk` (clock), `reset` (reset signal).
-- Outputs: `program_counter` (current program counter), `destination_register` (output register).
+## 2. Declaration File (MIPS_functions_declarations)
 
-The microprocessor comprises an instruction ROM (`MyRom`) and a set of registers (`R`). Each instruction in the ROM is 16 bits wide and corresponds to various operations performed by the processor.
+The `MIPS_functions_declarations` file encapsulates the declarations within the `pkg` package. It defines the `alu_result` record and declares the `ALU` function prototype, essential for performing arithmetic and logical operations within the microprocessor.
 
-## Architecture Description
+## 3. Implementations File (MIPS_functions_implementation)
 
-### Signals and Variables
-- `R`: Array of registers used for storing data.
-- `MyRom`: Instruction ROM holding the program instructions.
-- Various signals ( `alu_func`, `instruction_register`, `memory_rw`, `CF`, `ZF`, etc.) used for internal processing and control.
+The `MIPS_functions_implementation` file, contained within the package body `pkg`, hosts the implementation of the `ALU` function. This function handles various arithmetic and logical operations based on the provided opcode. It updates the `alu_result` record, indicating the result and carry/zero flags.
 
-### Processes
-- `clk` Process: Driven by the clock signal, it handles instruction fetching, decoding, execution, and control flow.
-- Instructions are fetched from `MyRom`, decoded, and executed based on the opcode.
-- Execution results update the registers and control signals (`ZF`, `CF`).
-- Control flow instructions (`BUN`, `BR`) alter the program counter (`pc_next`).
+## 4. Entity (mips_microprocessor)
 
-### Execution Units
-- Arithmetic Logic Unit (ALU): Executes arithmetic and logical operations specified by instructions.
+The `mips_microprocessor` entity serves as the core of the microprocessor design. It features ports such as `clk`, `reset`, `program_counter`, and `destination_register`, enabling communication with external elements. This entity orchestrates the entire processor's functionality, including instruction fetching, decoding, execution, and control flow.
 
-## Justification and Functionality
+## 5. Signals & Variables
 
-The design implements a basic MIPS-like microprocessor capable of executing a limited set of instructions stored in ROM. It handles arithmetic, logical, and control flow operations as per the provided instructions. The program counter (`program_counter`) reflects the current instruction being executed.
+Within the `mips_behav` architecture, various signals and variables play crucial roles in controlling the microprocessor's behavior. These include `R` (registers), `MyRom` (instruction ROM), `pc_current`, `pc_next` (program counters), and `instruction_register` (holding fetched instructions), among others. These elements collectively manage instruction execution and control.
 
-Each instruction is fetched, decoded, and executed sequentially based on the opcode. The ALU performs various operations such as addition, subtraction, logical AND, OR, XOR, etc. Branching instructions alter the program flow based on specific conditions.
+## 6. Opcode Switch Case
 
-## Notes
-- This implementation is simplified and serves as a starting point for a MIPS-like microprocessor.
-- Additional instructions and functionalities can be added for a more comprehensive processor.
+The `opcode` switch case statement, embedded within the microprocessor's architecture, decodes fetched instructions and directs the processor's behavior accordingly. Based on the opcode, specific operations are executed, utilizing the ALU function, performing arithmetic, logical, and control operations, and managing control flow via conditional branching.
 
 ---
 
-Please refer to the VHDL code for detailed comments and implementation specifics.
+The combination of these components creates a functioning MIPS-like microprocessor capable of executing a set of predefined instructions stored in ROM. Refer to the VHDL code for detailed implementation specifics and further insights into each component's functionality.
