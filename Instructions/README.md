@@ -1,4 +1,20 @@
-### Introduction:
+## Introduction
+
+The table below outlines the MIPS assembly instructions categorized by their type and functionality. These instructions are classified into three main types: R (Register), I (Immediate), and J (Jump). Each instruction type is characterized by specific fields and functions that enable operations within the MIPS architecture.
+
+### Instruction Set Overview
+
+The MIPS assembly language consists of various instructions, each represented by a combination of opcode and functional fields, operating on registers or immediate values. The instruction format and size vary based on their type, whether they manipulate registers, perform immediate operations, or handle jumps and branches.
+
+### Instruction Types Summary
+
+| Instruction Type | Description        | Number of Instructions |
+|------------------|--------------------|------------------------|
+| R (Register)     | Arithmetic commands |            8           |
+| I (Immediate)    | Immediate commands |            9           |
+| J (Jump)         | Jump & Branch      |            7           |
+
+### Program 1:
 This microprogram is designed to multiply two numbers using loops and then verify the result by dividing the obtained product by the second number. It performs arithmetic operations using the MIPS assembly instructions represented in machine code.
 
 | Machine Code | Description                            |
