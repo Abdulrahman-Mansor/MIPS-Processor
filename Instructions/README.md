@@ -29,7 +29,7 @@ This microprogram is designed to multiply two numbers using loops and then verif
 | x"145B"      | $r3 = $r2 / $r1                        |
 
 ### Program 2:
-This microprogram is designed to Check if the number entered in `r7` is prime or not. The number is prime if the `r5` flage is 0 and not prime otherwise. Since there no instruction that perfrom arithmetic `mod` (&) We used instead integer division `/` and multiplication `*`. For Example Assume that `x = 10` and `y = 4` when divide `z = x / y` then multiply `w = z * y` then compare `w == x` if true then `x` is divisble by `y` otherwise is false.
+This microprogram is designed to Check if the number entered in `r7` is prime or not. The number is prime if the `r5` flage is 0 and not prime otherwise. Since there no instruction that perfrom arithmetic `mod` (&) We used instead integer division `/` and multiplication `*`. For Example Assume that `x = 10` and `y = 4` when divide `z = x / y` then multiply `w = z * y` then compare `w == x` if true then `x` is divisble by `y` otherwise is false, in this case it is false because `10 != (10 / 4) * 4` => `10 != 2 * 4` => `10 != 8`.
 |    Machine Code    | Instruction Diagram  |                     Description                        |
 |--------------------|----------------------|------------------------------------------------------- |
 | x"7C02"            | r6 <- 2              | Load a 2 to r6 to perfrom as a counter                 |
