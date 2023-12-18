@@ -37,7 +37,7 @@ This microprogram is designed to Check if the number entered in `r7` is prime or
 | x"1F93"            | r2 <- r6 / r7        | Division of two values to get a boundary               |
 | x"1F9B"            | loop: r3 <- r7 / r6  | Division of number by the boundary                     |
 | x"17A2"            | r4 <- r3 * r6        | Multiplication for comparison                          |
-| x"A9CE"            | if r4 == r7          | Conditional check for prime number                     |
+| x"A9CE"            | if r4 == r7          | Branch if the number is not prime to raise r5 flag to 1|
 | x"2D81"            | r6 <- r6 + 1         | Increment to move to the next divisor                  |
 | x"CC83"            | if r6 < r2           | Check if the divisor is within the boundary            |
 | x"2B40"            | r5 <- r5 + 0         | Add r5 with 0 to display it in the simulation          |
